@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef } from "react";
 import Editor from "@monaco-editor/react";
 
 export default function FullPageMonaco({
-  initialValueLeft = `int main() {\n  printf("Hello from left editor!");\n}\n`,
+  initialValueLeft = `extern printf(...);\nint main() {\n  printf("Hello from braze!");\n}\n`,
   initialValueRight = `<no assembly generated>`,
   language = "c",
   theme = "vs-dark",
@@ -32,9 +32,14 @@ export default function FullPageMonaco({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code: value }),
     })
-      .then((res) => res.json());
-     // .then((data) => setOutput(data.output || data.error))
-     // .catch((err) => setOutput("Error: " + err.message));
+      .then((res) => res.json())
+      .then((data) => {
+        // ...and set it as the value for the right editor.
+        // This effectively "clears and pastes" the new content.
+        // It uses the 'output' field, or the 'error' field as a fallback.
+        setRightValue(data.output || data.error || "");
+      })
+      .catch((err) => setOutput("Error: " + err.message))
   }, []);
 
   const handleChangeRight = useCallback((value) => {
