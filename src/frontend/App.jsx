@@ -27,6 +27,14 @@ export default function FullPageMonaco({
     // value can be undefined in some typings, guard it
     setLeftValue(value ?? "");
     console.log("left editor value:", value);
+    fetch("http://localhost:4000/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: value }),
+    })
+      .then((res) => res.json());
+     // .then((data) => setOutput(data.output || data.error))
+     // .catch((err) => setOutput("Error: " + err.message));
   }, []);
 
   const handleChangeRight = useCallback((value) => {
