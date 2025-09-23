@@ -1,9 +1,5 @@
-import React, { useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import Editor from "@monaco-editor/react";
-
-// Full-page Monaco Editor React component with side-by-side editors
-// Usage: import FullPageMonaco from './FullPageMonaco';
-// Make sure to install: npm install @monaco-editor/react monaco-editor
 
 export default function FullPageMonaco({
   initialValueLeft = `int main() {\n  printf("Hello from left editor!");\n}\n`,
@@ -15,21 +11,27 @@ export default function FullPageMonaco({
   const leftEditorRef = useRef(null);
   const rightEditorRef = useRef(null);
 
-  const handleEditorDidMountLeft = useCallback((editor, monaco) => {
+  const [leftValue, setLeftValue] = useState(initialValueLeft);
+  const [rightValue, setRightValue] = useState(initialValueRight);
+
+  const handleEditorDidMountLeft = useCallback((editor) => {
     leftEditorRef.current = editor;
     editor.focus();
   }, []);
 
-  const handleEditorDidMountRight = useCallback((editor, monaco) => {
+  const handleEditorDidMountRight = useCallback((editor) => {
     rightEditorRef.current = editor;
   }, []);
 
-  const handleChangeLeft = useCallback((value, event) => {
-    // console.log('left editor value:', value);
+  const handleChangeLeft = useCallback((value) => {
+    // value can be undefined in some typings, guard it
+    setLeftValue(value ?? "");
+    console.log("left editor value:", value);
   }, []);
 
-  const handleChangeRight = useCallback((value, event) => {
-    // console.log('right editor value:', value);
+  const handleChangeRight = useCallback((value) => {
+    setRightValue(value ?? "");
+    console.log("right editor value:", value);
   }, []);
 
   const mergedOptions = {
@@ -43,23 +45,29 @@ export default function FullPageMonaco({
   return (
     <div
       className="h-screen w-screen grid grid-cols-2"
-      style={{ height: "100vh", width: "100vw", display: "grid", gridTemplateColumns: "1fr 1fr" }}
+      style={{
+        height: "100vh",
+        width: "100vw",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+      }}
     >
       <Editor
         height="100%"
         width="100%"
-        defaultLanguage={language}
-        defaultValue={initialValueLeft}
+        language={language}
+        value={leftValue}
         theme={theme}
         options={mergedOptions}
         onMount={handleEditorDidMountLeft}
         onChange={handleChangeLeft}
       />
+
       <Editor
         height="100%"
         width="100%"
-        defaultLanguage={language}
-        defaultValue={initialValueRight}
+        language={language}
+        value={rightValue}
         theme={theme}
         options={mergedOptions}
         onMount={handleEditorDidMountRight}
