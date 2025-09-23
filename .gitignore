@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+src/bin/test_file.s
+src/bin/test_file.s.asm
