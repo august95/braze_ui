@@ -2,8 +2,8 @@ import React, { useState, useCallback, useRef } from "react";
 import Editor from "@monaco-editor/react";
 
 export default function FullPageMonaco({
-  initialValueLeft = `extern printf(...);\nint main() {\n  printf("Hello from braze!");\n}\n`,
-  initialValueRight = `<no assembly generated>`,
+  initialValueLeft = `extern printf(...);\n\nint main() {\n  printf("Hello from braze!");\n}\n`,
+  initialValueRight = `section .data\nsection .text\nextern printf\nglobal main\nmain:\npush ebp\nmov ebp, esp\nlea ebx, [printf]\npush ebx\npop ebx\nmov ecx, ebx\nmov eax, str_1\npush eax\ncall ecx\nadd esp, 4\npush eax\npop eax\npush eax\nadd esp, 4\npop ebp\nret\nsection .rodata\nstr_1: db 'H', 'e', 'l', 'l', 'o', ' ', 'f', 'r', 'o', 'm', ' ', 'b', 'r', 'a', 'z', 'e', '!', 0\n`,
   language = "c",
   theme = "vs-dark",
   options = {},
