@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 src/bin/test_file.s
 src/bin/test_file.s.asm
+braze_compiler/
