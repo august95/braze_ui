@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 import Editor from "@monaco-editor/react";
+//import brazeLogo from "public/braze-high-resolution-logo-cropped.svg"; 
 
 export default function FullPageMonaco({
   initialValueLeft = `extern printf(...);\n\nint main() {\n  printf("Hello from braze!");\n}\n`,
@@ -56,7 +57,7 @@ export default function FullPageMonaco({
   };
 
 return (
-  <div
+<div
     style={{
       backgroundColor: "#181818",
       minHeight: "100vh",
@@ -65,14 +66,18 @@ return (
       fontSize: "18px",
     }}
   >
-    <div style={{ padding: "5px", fontSize: "24px", fontWeight: "bold" }}>
-      Braze Compiler
+    <div style={{ padding: "1px" }}>
+      <img
+        src="/braze-high-resolution-logo-cropped.svg"
+        alt="Braze Compiler Logo"
+        style={{ height: "40px" }} // You can adjust the height as needed
+      />
     </div>
 
     <div
       className="h-screen w-screen grid grid-cols-2"
       style={{
-        height: "100vh",
+        height: "calc(100vh - 60px)", // Adjust height to account for the logo header
         width: "100vw",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -106,7 +111,7 @@ return (
         onChange={handleChangeRight}
       />
     </div>
-  </div> 
+  </div>
 );
 
 }
