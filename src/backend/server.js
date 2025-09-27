@@ -54,4 +54,21 @@ app.post("/run", async (req, res) => {
   }
 });
 
+app.post("/toolchain", async (req, res) => {
+  console.log("Toolchain set to:", currentToolchain);
+  try {
+    const toolchain = req.body.toolchain;
+    if (!toolchain) {
+      return res.status(400).json({ error: "Missing toolchain value" });
+    }
+
+    currentToolchain = toolchain;
+
+    res.json({ message: "Toolchain updated", toolchain: currentToolchain });
+  } catch (err) {
+    console.log("Unexpected server error:\n", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(4000, () => console.log("Backend running on http://localhost:4000"));

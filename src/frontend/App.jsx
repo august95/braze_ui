@@ -48,6 +48,22 @@ export default function FullPageMonaco({
     console.log("right editor value:", value);
   }, []);
 
+  const handleToolchainChange = useCallback((event) => {
+  const selectedToolchain = event.target.value;
+  console.log("Selected toolchain:", selectedToolchain);
+
+  fetch("http://localhost:4000/toolchain", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ toolchain: selectedToolchain }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Toolchain response:", data);
+    })
+    .catch((err) => console.error("Error:", err));
+}, []);
+
   const mergedOptions = {
     automaticLayout: true,
     minimap: { enabled: false },
@@ -56,97 +72,101 @@ export default function FullPageMonaco({
     ...options,
   };
 
-return (
-  <div
-    style={{
-      backgroundColor: "#181818",
-      minHeight: "100vh",
-      minWidth: "100vw",
-      color: "white",
-      fontSize: "18px",
-    }}
-  >
-    {/* Header */}
+  return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "10px 20px",
+        backgroundColor: "#181818",
+        minHeight: "100vh",
+        minWidth: "100vw",
+        color: "white",
+        fontSize: "18px",
       }}
     >
-      {/* Logo */}
-      <img
-        src="/braze-high-resolution-logo-cropped.svg"
-        alt="Braze Compiler Logo"
-        style={{ height: "30px" }}
-      />
-
-      {/* Dropdown Menu */}
-      <select
+      {/* Header */}
+      <div
         style={{
-          backgroundColor: "#333",
-          color: "white",
-          border: "none",
-          padding: "5px 10px",
-          borderRadius: "5px",
-          cursor: "pointer",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px 20px",
         }}
       >
-        <option value="option1">Braze Compiler</option>
-        <option value="option2">todo: add other toolchains</option>
-        <option value="option3">todo: add other toolchains</option>
-      </select>
-    </div>
+        {/* Logo */}
+        <img
+          src="/braze-high-resolution-logo-cropped.svg"
+          alt="Braze Compiler Logo"
+          style={{ height: "30px" }}
+        />
 
-    {/* Divider line */}
-    <div
-      style={{
-        borderBottom: "2px solid #333",
-        margin: "0 0 0px 0",
-      }}
-    ></div>
+        {/* Dropdown + Label */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <span style={{ fontSize: "18px", color: "white" }}>Toolchain:</span>
+          <select
+            style={{
+              backgroundColor: "#333",
+              color: "white",
+              border: "none",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            onChange={handleToolchainChange}
+          >
+            <option value="option1">Braze.Compiler</option>
+            <option value="option2">todo: add other toolchains</option>
+          </select>
+        </div>
+      </div>
 
-    {/* Editor Grid */}
-    <div
-      className="h-screen w-screen grid grid-cols-2"
-      style={{
-        height: "calc(100vh - 60px)",
-        width: "100vw",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-      }}
-    >
-      <Editor
-        height="100%"
-        width="100%"
-        language={language}
-        value={leftValue}
-        theme={theme}
-        options={{
-          ...mergedOptions,
-          fontSize: 16,
+
+      {/* Divider line */}
+      <div
+        style={{
+          borderBottom: "2px solid #333",
+          margin: "0 0 0px 0",
         }}
-        onMount={handleEditorDidMountLeft}
-        onChange={handleChangeLeft}
-      />
+      ></div>
 
-      <Editor
-        height="100%"
-        width="100%"
-        language={language}
-        value={rightValue}
-        theme={theme}
-        options={{
-          ...mergedOptions,
-          fontSize: 16,
+      {/* Editor Grid */}
+      <div
+        className="h-screen w-screen grid grid-cols-2"
+        style={{
+          height: "calc(100vh - 60px)",
+          width: "100vw",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
         }}
-        onMount={handleEditorDidMountRight}
-        onChange={handleChangeRight}
-      />
+      >
+        <Editor
+          height="100%"
+          width="100%"
+          language={language}
+          value={leftValue}
+          theme={theme}
+          options={{
+            ...mergedOptions,
+            fontSize: 16,
+          }}
+          onMount={handleEditorDidMountLeft}
+          onChange={handleChangeLeft}
+        />
+
+        <Editor
+          height="100%"
+          width="100%"
+          language={language}
+          value={rightValue}
+          theme={theme}
+          options={{
+            ...mergedOptions,
+            fontSize: 16,
+          }}
+          onMount={handleEditorDidMountRight}
+          onChange={handleChangeRight}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
 
 
 
