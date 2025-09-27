@@ -66,11 +66,11 @@ return (
       fontSize: "18px",
     }}
   >
-    <div style={{ padding: "1px" }}>
+    <div style={{ padding: "10px" }}>
       <img
         src="/braze-high-resolution-logo-cropped.svg"
         alt="Braze Compiler Logo"
-        style={{ height: "40px" }} // You can adjust the height as needed
+        style={{ height: "30px" }} // You can adjust the height as needed
       />
     </div>
 
