@@ -106,7 +106,7 @@ return (
         onChange={handleChangeRight}
       />
     </div>
-  </div> // ✅ this is the single root div closing
+  </div> 
 );
 
 }
