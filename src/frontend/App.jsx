@@ -57,7 +57,7 @@ export default function FullPageMonaco({
   };
 
 return (
-<div
+  <div
     style={{
       backgroundColor: "#181818",
       minHeight: "100vh",
@@ -70,14 +70,22 @@ return (
       <img
         src="/braze-high-resolution-logo-cropped.svg"
         alt="Braze Compiler Logo"
-        style={{ height: "30px" }} // You can adjust the height as needed
+        style={{ height: "30px" }} // Adjust height as needed
       />
     </div>
+
+    {/* Divider line */}
+    <div
+      style={{
+        borderBottom: "2px solid #333", // Thin line
+        margin: "0 0 0px 0", // Optional spacing below the line
+      }}
+    ></div>
 
     <div
       className="h-screen w-screen grid grid-cols-2"
       style={{
-        height: "calc(100vh - 60px)", // Adjust height to account for the logo header
+        height: "calc(100vh - 60px)", // Adjust height to account for the header
         width: "100vw",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -113,5 +121,6 @@ return (
     </div>
   </div>
 );
+
 
 }
