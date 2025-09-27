@@ -56,36 +56,42 @@ export default function FullPageMonaco({
   };
 
   return (
-    <div
-      className="h-screen w-screen grid grid-cols-2"
-      style={{
-        height: "100vh",
-        width: "100vw",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-      }}
-    >
-      <Editor
-        height="100%"
-        width="100%"
-        language={language}
-        value={leftValue}
-        theme={theme}
-        options={mergedOptions}
-        onMount={handleEditorDidMountLeft}
-        onChange={handleChangeLeft}
-      />
+    <div>
+      <div>
+        Braze Compiler
+      </div>
 
-      <Editor
-        height="100%"
-        width="100%"
-        language={language}
-        value={rightValue}
-        theme={theme}
-        options={mergedOptions}
-        onMount={handleEditorDidMountRight}
-        onChange={handleChangeRight}
-      />
+      <div
+        className="h-screen w-screen grid grid-cols-2"
+        style={{
+          height: "100vh",
+          width: "100vw",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+        }}
+      >
+        <Editor
+          height="100%"
+          width="100%"
+          language={language}
+          value={leftValue}
+          theme={theme}
+          options={mergedOptions}
+          onMount={handleEditorDidMountLeft}
+          onChange={handleChangeLeft}
+        />
+
+        <Editor
+          height="100%"
+          width="100%"
+          language={language}
+          value={rightValue}
+          theme={theme}
+          options={mergedOptions}
+          onMount={handleEditorDidMountRight}
+          onChange={handleChangeRight}
+        />
+      </div>
     </div>
   );
 }
