@@ -66,26 +66,52 @@ return (
       fontSize: "18px",
     }}
   >
-    <div style={{ padding: "10px" }}>
+    {/* Header */}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "10px 20px",
+      }}
+    >
+      {/* Logo */}
       <img
         src="/braze-high-resolution-logo-cropped.svg"
         alt="Braze Compiler Logo"
-        style={{ height: "30px" }} // Adjust height as needed
+        style={{ height: "30px" }}
       />
+
+      {/* Dropdown Menu */}
+      <select
+        style={{
+          backgroundColor: "#333",
+          color: "white",
+          border: "none",
+          padding: "5px 10px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        <option value="option1">Braze Compiler</option>
+        <option value="option2">todo: add other toolchains</option>
+        <option value="option3">todo: add other toolchains</option>
+      </select>
     </div>
 
     {/* Divider line */}
     <div
       style={{
-        borderBottom: "2px solid #333", // Thin line
-        margin: "0 0 0px 0", // Optional spacing below the line
+        borderBottom: "2px solid #333",
+        margin: "0 0 0px 0",
       }}
     ></div>
 
+    {/* Editor Grid */}
     <div
       className="h-screen w-screen grid grid-cols-2"
       style={{
-        height: "calc(100vh - 60px)", // Adjust height to account for the header
+        height: "calc(100vh - 60px)",
         width: "100vw",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -121,6 +147,8 @@ return (
     </div>
   </div>
 );
+
+
 
 
 }
