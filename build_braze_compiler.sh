@@ -5,7 +5,7 @@ set -e  # Exit immediately if a command fails
 echo "--Building Brace Compiler---"
 echo ""
 echo ""
-echo "WARNING: If building braze_compiler fails, run install_tools.sh from braze_compiler to install proper toolchains!!!"
+echo "NOTE: If building braze_compiler fails, run install_tools.sh from braze_compiler to install proper toolchains!!!"
 echo ""
 echo ""
 
