@@ -13,6 +13,9 @@ const __dirname = dirname(__filename);
 const BINARY_PATH = path.join(__dirname, "../bin/braze");
 const TEST_FILE_PATH = path.join(__dirname, "../bin/test_file.s");
 const ASM_OUTPUT_PATH = path.join(__dirname, "../bin/test_file.s.asm");
+// Global state for toolchain
+
+let currentToolchain = null;
 
 const app = express();
 app.use(cors({ origin: "*" }));
@@ -55,16 +58,12 @@ app.post("/run", async (req, res) => {
 });
 
 app.post("/toolchain", async (req, res) => {
-  console.log("Toolchain set to:", currentToolchain);
+  const toolchain = req.body.toolchain;
+  console.log("Toolchain set to:", toolchain);
   try {
-    const toolchain = req.body.toolchain;
     if (!toolchain) {
       return res.status(400).json({ error: "Missing toolchain value" });
     }
-
-    currentToolchain = toolchain;
-
-    res.json({ message: "Toolchain updated", toolchain: currentToolchain });
   } catch (err) {
     console.log("Unexpected server error:\n", err.message);
     res.status(500).json({ error: err.message });

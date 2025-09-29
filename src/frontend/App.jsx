@@ -112,8 +112,8 @@ export default function FullPageMonaco({
             }}
             onChange={handleToolchainChange}
           >
-            <option value="option1">Braze.Compiler</option>
-            <option value="option2">todo: add other toolchains</option>
+            <option value="braze">Braze.Compiler</option>
+            <option value="gcc">todo: add other toolchains</option>
           </select>
         </div>
       </div>
