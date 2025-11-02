@@ -32,7 +32,8 @@ app.post("/run", async (req, res) => {
     await fs.writeFile(TEST_FILE_PATH, code, "utf8");
 
     // Step 2: Run the binary
-    execFile(BINARY_PATH, [TEST_FILE_PATH], async (error, stdout, stderr) => {
+    //FIXME: pass c code as command line argument
+    execFile(BINARY_PATH, ["--input_file", TEST_FILE_PATH], async (error, stdout, stderr) => {
       if (error) {
         console.log("Binary execution error:\n", stderr || error.message);
         return res.status(500).json({ error: stderr || error.message });
