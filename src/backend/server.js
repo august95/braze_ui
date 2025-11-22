@@ -11,8 +11,6 @@ const __dirname = dirname(__filename);
 
 // Paths
 const BINARY_PATH = path.join(__dirname, "../bin/braze");
-const TEST_FILE_PATH = path.join(__dirname, "../bin/test_file.s");
-const ASM_OUTPUT_PATH = path.join(__dirname, "../bin/test_file.s.asm");
 // Global state for toolchain
 
 let currentToolchain = null;
@@ -24,31 +22,16 @@ app.use(express.json());
 app.post("/run", async (req, res) => {
   try {
     const code = req.body.code;
-    
-    // Log the incoming request content
-    console.log("Received request with code:\n", code);
 
-    // Step 1: Save input code to test_file.s
-    await fs.writeFile(TEST_FILE_PATH, code, "utf8");
-
-    // Step 2: Run the binary
-    //FIXME: pass c code as command line argument
-    execFile(BINARY_PATH, ["--input_file", TEST_FILE_PATH], async (error, stdout, stderr) => {
+    execFile(BINARY_PATH, ["--command_mode", code], async (error, stdout, stderr) => {
       if (error) {
         console.log("Binary execution error:\n", stderr || error.message);
         return res.status(500).json({ error: stderr || error.message });
       }
-
       try {
-        // Step 3: Read the resulting .c.asm file
-        const asmContent = await fs.readFile(ASM_OUTPUT_PATH, "utf8");
-        
-        // Log the response content
-        console.log("Sending response with output:\n", asmContent);
-
-        res.json({ output: asmContent });
+        res.json({ output: stdout });
       } catch (readErr) {
-        console.log("Failed to read assembly output:\n", readErr.message);
+        //console.log("Failed to read assembly output:\n", readErr.message);
         res.status(500).json({ error: "Failed to read assembly output: " + readErr.message });
       }
     });
