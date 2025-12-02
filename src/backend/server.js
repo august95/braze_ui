@@ -23,7 +23,7 @@ app.post("/run", async (req, res) => {
   try {
     const code = req.body.code;
 
-    execFile(BINARY_PATH, ["--command_mode", code], async (error, stdout, stderr) => {
+    execFile(BINARY_PATH, ["--input_code", code], async (error, stdout, stderr) => {
       if (error) {
         console.log("Binary execution error:\n", stderr || error.message);
         return res.status(500).json({ error: stderr || error.message });
